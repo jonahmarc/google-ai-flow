@@ -141,13 +141,12 @@ def main():
         clicked = page.evaluate("""
             () => {
                 const buttons = Array.from(document.querySelectorAll('button'));
-                console.log('All buttons:', buttons.map(b => b.innerText + ' | ' + b.getAttribute('aria-label')));
-
-                const createBtn = buttons.find(b =>
-                    b.querySelector('i')?.innerText?.includes('arrow_forward') ||
-                    b.innerText.toLowerCase().includes('create')
-                );
-                if (createBtn) { createBtn.click(); return true; }
+                // Match specifically the arrow_forward icon, not add_2
+                const sendBtn = buttons.find(b => {
+                    const icon = b.querySelector('i');
+                    return icon && icon.innerText.trim() === 'arrow_forward';
+                });
+                if (sendBtn) { sendBtn.click(); return true; }
                 return false;
             }
         """)
