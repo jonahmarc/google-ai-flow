@@ -146,6 +146,15 @@ def main():
             if tmp_path:
                 print("[2] Attaching reference image via UI...", flush=True)
 
+                # Register the file chooser handler up front so it fires whenever
+                # the native dialog would appear — more reliable than expect_file_chooser()
+                # with a CDP-connected browser.
+                def on_file_chooser(fc):
+                    print("[2] File chooser intercepted, setting file...", flush=True)
+                    fc.set_files(tmp_path)
+
+                page.on("filechooser", on_file_chooser)
+
                 # Click the attach button — identified by the 'add_2' material icon
                 # (not 'arrow_forward' which is the send button)
                 attach_clicked = page.evaluate("""
@@ -168,20 +177,27 @@ def main():
                 # Click "Upload image" in the attachment type modal
                 page.get_by_text("Upload image", exact=True).click()
                 print("[2] 'Upload image' option clicked", flush=True)
-                page.wait_for_timeout(500)
+                page.wait_for_timeout(1500)
 
-                # The terms notice dialog appears — accept it and handle the file chooser
-                with page.expect_file_chooser(timeout=10000) as fc_info:
-                    page.get_by_role("button", name="I agree").click()
+                # Accept the terms notice — only appears once per session
+                try:
+                    page.wait_for_selector('button:has-text("I agree")', timeout=3000)
+                    page.evaluate("""
+                        () => {
+                            const btn = Array.from(document.querySelectorAll('button'))
+                                .find(b => b.innerText.trim() === 'I agree');
+                            if (btn) btn.click();
+                        }
+                    """)
                     print("[2] 'I agree' clicked", flush=True)
-
-                file_chooser = fc_info.value
-                file_chooser.set_files(tmp_path)
-                print("[2] File submitted to chooser", flush=True)
+                except Exception:
+                    print("[2] No terms dialog (already accepted), continuing...", flush=True)
 
                 # Wait for Flow to upload and process the image
                 page.wait_for_timeout(4000)
                 print("[2] Image upload complete", flush=True)
+
+                page.remove_listener("filechooser", on_file_chooser)
 
             # Click into the Slate editor
             print("[3] Clicking prompt input...", flush=True)
