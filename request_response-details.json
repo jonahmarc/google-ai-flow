@@ -1,0 +1,199 @@
+// HEADERS DETAILS
+// ------- General
+Request URL:      https://aisandbox-pa.googleapis.com/v1/projects/0c5ebc9f-bc1f-4159-b613-6328056b8602/flowMedia:batchGenerateImages
+Request Method:   POST
+Status Code:      200 OK
+Remote Address:   142.251.220.138:443
+Referrer Policy:  strict-origin-when-cross-origin
+// ------- Response Headers
+access-control-allow-credentials:       true
+access-control-allow-origin:            https://labs.google
+access-control-expose-headers:          vary,vary,vary,content-encoding,date,server,content-length
+alt-svc:                                h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+content-encoding:                       gzip
+content-length:                         1186
+content-type:                           application/json; charset=UTF-8
+date:                                   Tue, 21 Apr 2026 06:43:39 GMT
+server:                                 ESF
+vary:                                   Origin
+vary:                                   X-Origin
+vary:                                   Referer
+x-content-type-options:                 nosniff
+x-frame-options:                        SAMEORIGIN
+x-xss-protection:                       0
+// ------- Request Headers
+:authority                    aisandbox-pa.googleapis.com
+:method                       POST
+:path                         /v1/projects/0c5ebc9f-bc1f-4159-b613-6328056b8602/flowMedia:batchGenerateImages
+:scheme                       https
+accept                        */*
+(this line is not included*/
+accept-encoding               gzip, deflate, br, zstd
+accept-language               en-US,en;q=0.7
+authorization                 Bearer ya29.a0Aa7MYioOTNVEFAQPAQIVYCcjHyLVzuL0RPjiAnuXEtQVOxOGaWkBnCApgLkjWGAcJAjTz2sKmNFkJIZd0VhoRX0KuwSQhXPq8MuZSQzWaqEaMpt4N4Cl09SwUC7Jc8GHtutDu_ewc1uHKRI2lO3W_Vq8uvGZn8ishP0sAlzmgswvueeQ1B2nny8Y_6MkX1C6q1OPcAR-nzI6B3FpsqVxIsRUlmjJStNzM5P1-M5t3q-lX3aspzYY29WLNHG7eo2kJR6mSKMPY7YUNwdeKVUpISxPT_JtTjy_sBBG9f5CRa9RRaTjuvxwj6D8PtwKZjpQ1zO6b3e3EQUahv-WA3CLpSRw5eD0xbltLUr5Y2F70pAaCgYKARYSARQSFQHGX2MiqJCr4WNGKHgFZjBARPIEZQ0370
+cache-control                 no-cache
+content-length                5290
+content-type                  text/plain;charset=UTF-8
+origin                        https://labs.google
+pragma                        no-cache
+priority                      u=1, i
+referer                       https://labs.google/
+sec-ch-ua                     "Brave";v="147", "Not.A/Brand";v="8", "Chromium";v="147"
+sec-ch-ua-mobile              ?1
+sec-ch-ua-platform            "Android"
+sec-fetch-dest                empty
+sec-fetch-mode                cors
+sec-fetch-site                cross-site
+sec-gpc                       1
+user-agent                    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36
+
+// PAYLOAD DETAILS
+{
+  "clientContext": {
+    "recaptchaContext": {
+      "token": "0cAFcWeA5LpHNfWqciqOordTcI0VQnLyjD3cYL81DEBxcpRWbH2dk43uRdyE0x2F07eAdF53YO7M7vGGNZGjGGk5BQvEGrPIzGg8ZnEBGO4ARiPAPnD4ILClsMyVZ3iPUKIaLBhtHn9nq5nth7lnR__kGiJLj4H8KM1QlEg96-jIQ069Z47UCvlaZcUElNqSqJ9XAPWfmLmK4s-5vsCftsA8RkmL-izSgdVqr_tbnEkNnHa_dzgQllaAGhD_6aVQ4OB028wnfWoaDV6cnadGF4PLqvlhEkaAnQsrrAx6-WsEILHasc5yGG3T2TfJSPaVdDiOIGryEtoVw9nrNZaCw-WjFfjaT5T-dGTdB8jFAOLRD0mRI7aT3IjyobPZbhmYd3Kl1qDs6LmUTDgUHuM8h-TwLDwQ0UsszUr1siUaciVbV6rLoWNB8_PKUawh027n-1omgWW_r11fNYOaV6m1F-WA8KVcIyKm_Q_vB3FXqN2TAfBQQgoDlvXCqkDKhYG1V_eEjjSf5jJtuHaoaslYlf3M37GjiPs9TPrx9T9lDaMQXOvE9v5PifRt_Y8nBXKGYme1KR7eZrPT6IvAs1qbN6yKPMXYnO0COs4jdP6z_EC1ReJtBSRxsi52uvTWaXMTvLEUMOhU_TJMtby1lk6tdp68cG5yvnqNlxlaUWbDHZ2iBnriEMB-4VLEFpGorlUF6NLnLSlYyBh5xKEU_TGz12Olkx2RP_L9pIU53mc92_lDdio9rde1BAgNVSMJNGGx3YFdt3jt9CQPLPke2az_ltBXjpgp1-4QtpO0tqC6awqIr9hlEeFATepEG0BVQhX0XuS5YyVlnsoH3VXHp3HdavvUwAIYNav6NzqdWn5FsxMg_LJEC0w_bP37JymrkR-aKrG7uddgMY7l1_UPj3paxCr4nBzJMXPASKsVkZDEIY869qSJRZ1guvr1PZAg7wreHl7veBndemN7z-CDDwnCsGzhSxQws4gXYy0RT4M0Yn2cOjtMu77mEk98fsGdQqWnCUU3h4qpvdQ3-xZZsAfM-a1UTR3RCTob-5HLmWKUWmFizKRyNEG4ge-sKGWlSoqszgek88JbBUSMoyxSly0SkTgzPw3nlTYYampiuZEi2231mavlWgebhgjrJfJmIr62lzVvXrwdqHiynSzquBXumjVmmCnNfeVMh5dopjn5cSd48nIGPb1dwSGJOaV20aL5AkeIEpxkm90wDvAixrkc1BNz4huf32qFrsDUn8YY2VVSNCqMFeYxGrf64R8bKYQdifV28QEAviG3bJp47dZtax3SwIod3m7vwNcx6fVCZ5hyWQRXVy0LsmBqfZU7xe93881it9KxL3WtBaZtNauWgZPCsySZgfZrGQGBm8up_r64ug0_ONUa8e2ukS8fcOefDVmhK2ccWS3qHM_vIRL0ijl7DFz7ykNPcHFq7t5EeeFl77DYw0XJxVlov1zWwcrhpy6Czl_GN40ma4Bv2vQeuKqHrwHkXvpEx1WnMIhACn2hzsdgrTopCuMjkvfTL6sBsrmENkLRayuI8vmjQjNAcckdsi8KPeVWzROz1mYlHC5ETOb9RsT_DObPB6r-ZIBqdC_tm1_pHfBSsGJkDMdgmvOXXIZU8T28howAK2q5Nx2D9xZHaFYGicKBLVmmHL-n7pOrhculSyaGpth9QScy3wXPiwKF2hHN4PAv5p9_2sKHCTtp7MZd-MOIiB7Ke6NBOX4GSURcA_yDrBCeayp4MnIvL_2A-w_teLFCR1sbvbEXzaefzq0UMiirrYvm6G_RYvWniY04-V_-VNcLHAvSophNsJlIAitxWLQptct00WdRx-X9vrZoUlBO5j2eUkWJbgeExMRxytizJXLfzQlH0-TiiBPbqcjegHN9un90GwHete9VpVubZW9O-A_6xSuB8FRvd9coq6Z-dxoVnfXykyGzMoJAtOOWhFwfBgduCkHZ0HgZl_XGD9OXFboRwic_t5aom1tCfttXhqc9KNCs3bESsvO3ibmXip8c_ArCSBevnrJC7zdSZdYUr6sr23UetR2uX5W32veRKa8YnMbV_yP0f7nv91cGt_EQ1s6VzeW6-r4J1O28bsuWUI7f-WvDRlEXhnZrYqEADkabRzqfZWNR_vjp3fJC8z-GGDDhleqR7C9-cZ8d_zKLp8hxSGs-D5RLt60Sbi1T601m6MUoyW3vndZnwmmnzFazcc7DGDsEBpjOLupvPTGLKSZrYab9tKp_bu6Fn6GeuyJWi6VMwR8FyTBwcNEMH0Iw",
+      "applicationType": "RECAPTCHA_APPLICATION_TYPE_WEB"
+    },
+    "projectId": "0c5ebc9f-bc1f-4159-b613-6328056b8602",
+    "tool": "PINHOLE",
+    "sessionId": ";1776753819156"
+  },
+  "mediaGenerationContext": {
+    "batchId": "66efc8b9-da70-4bed-8193-6f605053fa84"
+  },
+  "useNewMedia": true,
+  "requests": [
+    {
+      "clientContext": {
+        "recaptchaContext": {
+          "token": "0cAFcWeA5LpHNfWqciqOordTcI0VQnLyjD3cYL81DEBxcpRWbH2dk43uRdyE0x2F07eAdF53YO7M7vGGNZGjGGk5BQvEGrPIzGg8ZnEBGO4ARiPAPnD4ILClsMyVZ3iPUKIaLBhtHn9nq5nth7lnR__kGiJLj4H8KM1QlEg96-jIQ069Z47UCvlaZcUElNqSqJ9XAPWfmLmK4s-5vsCftsA8RkmL-izSgdVqr_tbnEkNnHa_dzgQllaAGhD_6aVQ4OB028wnfWoaDV6cnadGF4PLqvlhEkaAnQsrrAx6-WsEILHasc5yGG3T2TfJSPaVdDiOIGryEtoVw9nrNZaCw-WjFfjaT5T-dGTdB8jFAOLRD0mRI7aT3IjyobPZbhmYd3Kl1qDs6LmUTDgUHuM8h-TwLDwQ0UsszUr1siUaciVbV6rLoWNB8_PKUawh027n-1omgWW_r11fNYOaV6m1F-WA8KVcIyKm_Q_vB3FXqN2TAfBQQgoDlvXCqkDKhYG1V_eEjjSf5jJtuHaoaslYlf3M37GjiPs9TPrx9T9lDaMQXOvE9v5PifRt_Y8nBXKGYme1KR7eZrPT6IvAs1qbN6yKPMXYnO0COs4jdP6z_EC1ReJtBSRxsi52uvTWaXMTvLEUMOhU_TJMtby1lk6tdp68cG5yvnqNlxlaUWbDHZ2iBnriEMB-4VLEFpGorlUF6NLnLSlYyBh5xKEU_TGz12Olkx2RP_L9pIU53mc92_lDdio9rde1BAgNVSMJNGGx3YFdt3jt9CQPLPke2az_ltBXjpgp1-4QtpO0tqC6awqIr9hlEeFATepEG0BVQhX0XuS5YyVlnsoH3VXHp3HdavvUwAIYNav6NzqdWn5FsxMg_LJEC0w_bP37JymrkR-aKrG7uddgMY7l1_UPj3paxCr4nBzJMXPASKsVkZDEIY869qSJRZ1guvr1PZAg7wreHl7veBndemN7z-CDDwnCsGzhSxQws4gXYy0RT4M0Yn2cOjtMu77mEk98fsGdQqWnCUU3h4qpvdQ3-xZZsAfM-a1UTR3RCTob-5HLmWKUWmFizKRyNEG4ge-sKGWlSoqszgek88JbBUSMoyxSly0SkTgzPw3nlTYYampiuZEi2231mavlWgebhgjrJfJmIr62lzVvXrwdqHiynSzquBXumjVmmCnNfeVMh5dopjn5cSd48nIGPb1dwSGJOaV20aL5AkeIEpxkm90wDvAixrkc1BNz4huf32qFrsDUn8YY2VVSNCqMFeYxGrf64R8bKYQdifV28QEAviG3bJp47dZtax3SwIod3m7vwNcx6fVCZ5hyWQRXVy0LsmBqfZU7xe93881it9KxL3WtBaZtNauWgZPCsySZgfZrGQGBm8up_r64ug0_ONUa8e2ukS8fcOefDVmhK2ccWS3qHM_vIRL0ijl7DFz7ykNPcHFq7t5EeeFl77DYw0XJxVlov1zWwcrhpy6Czl_GN40ma4Bv2vQeuKqHrwHkXvpEx1WnMIhACn2hzsdgrTopCuMjkvfTL6sBsrmENkLRayuI8vmjQjNAcckdsi8KPeVWzROz1mYlHC5ETOb9RsT_DObPB6r-ZIBqdC_tm1_pHfBSsGJkDMdgmvOXXIZU8T28howAK2q5Nx2D9xZHaFYGicKBLVmmHL-n7pOrhculSyaGpth9QScy3wXPiwKF2hHN4PAv5p9_2sKHCTtp7MZd-MOIiB7Ke6NBOX4GSURcA_yDrBCeayp4MnIvL_2A-w_teLFCR1sbvbEXzaefzq0UMiirrYvm6G_RYvWniY04-V_-VNcLHAvSophNsJlIAitxWLQptct00WdRx-X9vrZoUlBO5j2eUkWJbgeExMRxytizJXLfzQlH0-TiiBPbqcjegHN9un90GwHete9VpVubZW9O-A_6xSuB8FRvd9coq6Z-dxoVnfXykyGzMoJAtOOWhFwfBgduCkHZ0HgZl_XGD9OXFboRwic_t5aom1tCfttXhqc9KNCs3bESsvO3ibmXip8c_ArCSBevnrJC7zdSZdYUr6sr23UetR2uX5W32veRKa8YnMbV_yP0f7nv91cGt_EQ1s6VzeW6-r4J1O28bsuWUI7f-WvDRlEXhnZrYqEADkabRzqfZWNR_vjp3fJC8z-GGDDhleqR7C9-cZ8d_zKLp8hxSGs-D5RLt60Sbi1T601m6MUoyW3vndZnwmmnzFazcc7DGDsEBpjOLupvPTGLKSZrYab9tKp_bu6Fn6GeuyJWi6VMwR8FyTBwcNEMH0Iw",
+          "applicationType": "RECAPTCHA_APPLICATION_TYPE_WEB"
+        },
+        "projectId": "0c5ebc9f-bc1f-4159-b613-6328056b8602",
+        "tool": "PINHOLE",
+        "sessionId": ";1776753819156"
+      },
+      "imageModelName": "NARWHAL",
+      "imageAspectRatio": "IMAGE_ASPECT_RATIO_LANDSCAPE",
+      "structuredPrompt": {
+        "parts": [
+          {
+            "text": "Create a pickleball court layout with dark blue and pastel pink as main colors. "
+          }
+        ]
+      },
+      "seed": 320206,
+      "imageInputs": []
+    }
+  ]
+}
+
+// PREVIEW DETAILS
+{
+    "media": [
+        {
+            "name": "32ce61c2-4ddc-4848-a924-338e2ce17b5f",
+            "workflowId": "9e07f365-9688-4749-894a-7e5b71b2b0fd",
+            "image": {
+                "generatedImage": {
+                    "seed": 320206,
+                    "mediaGenerationId": "CAMSJDBjNWViYzlmLWJjMWYtNDE1OS1iNjEzLTYzMjgwNTZiODYwMhokM2FmMmY4NWYtZjk1Yy00NDczLTlkNGItZDY5Yzc2ZWYwNmYyIgNDQUUqJDMyY2U2MWMyLTRkZGMtNDg0OC1hOTI0LTMzOGUyY2UxN2I1Zg",
+                    "mediaVisibility": "PRIVATE",
+                    "prompt": "Create a pickleball court layout with dark blue and pastel pink as main colors. ",
+                    "modelNameType": "NARWHAL",
+                    "workflowId": "9e07f365-9688-4749-894a-7e5b71b2b0fd",
+                    "fifeUrl": "https://storage.googleapis.com/ai-sandbox-videofx/image/32ce61c2-4ddc-4848-a924-338e2ce17b5f?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1776775419&Signature=a%2FfJlQNaT3YSoL63dEzBGVMPGpPPsu5d4Vr9DM3muqdDvsu47dyzNiB1SGdNx%2BT1TgqmomMnYtPr3rzxcBgsxDaf030owe0YFt0D3cmj6ro%2BPgzUBn69qedDq8ZCwDoP0okIt1ByQ%2Bya16YCMtNr4Zc7zj1%2BRJyaMJIJHHUdVqz9fCp0WZjOAgiMsdjcdwYBEIpDHzKOuLPkoeZYu6B4fcKGHM8V0GTL%2BAJp9ZFHO2UMK%2BZ6ElcQtvvYWkuhr6NzDu7ZA0QtaueFEdAtnX8wVkwK6eQ0pUIESMfZnFJdXMLPixKrdIUvD84noiMmweNrBdBvWXPADKXLad76cCnaAg%3D%3D",
+                    "aspectRatio": "IMAGE_ASPECT_RATIO_LANDSCAPE",
+                    "requestData": {
+                        "promptInputs": [
+                            {
+                                "textInput": "Create a pickleball court layout with dark blue and pastel pink as main colors. ",
+                                "structuredPrompt": {
+                                    "parts": [
+                                        {
+                                            "text": "Create a pickleball court layout with dark blue and pastel pink as main colors. "
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "imageGenerationRequestData": {}
+                    },
+                    "mediaId": "32ce61c2-4ddc-4848-a924-338e2ce17b5f"
+                },
+                "dimensions": {
+                    "width": 1376,
+                    "height": 768
+                }
+            }
+        }
+    ],
+    "workflows": [
+        {
+            "name": "9e07f365-9688-4749-894a-7e5b71b2b0fd",
+            "metadata": {
+                "displayName": "Pickleball court layout colors",
+                "createTime": "2026-04-21T06:43:00.801875Z",
+                "primaryMediaId": "32ce61c2-4ddc-4848-a924-338e2ce17b5f",
+                "batchId": "66efc8b9-da70-4bed-8193-6f605053fa84",
+                "updateTime": "2026-04-21T06:43:37.629792Z"
+            },
+            "projectId": "0c5ebc9f-bc1f-4159-b613-6328056b8602"
+        }
+    ]
+}
+
+// RESPONSE DETAILS
+{
+  "media": [
+    {
+      "name": "32ce61c2-4ddc-4848-a924-338e2ce17b5f",
+      "workflowId": "9e07f365-9688-4749-894a-7e5b71b2b0fd",
+      "image": {
+        "generatedImage": {
+          "seed": 320206,
+          "mediaGenerationId": "CAMSJDBjNWViYzlmLWJjMWYtNDE1OS1iNjEzLTYzMjgwNTZiODYwMhokM2FmMmY4NWYtZjk1Yy00NDczLTlkNGItZDY5Yzc2ZWYwNmYyIgNDQUUqJDMyY2U2MWMyLTRkZGMtNDg0OC1hOTI0LTMzOGUyY2UxN2I1Zg",
+          "mediaVisibility": "PRIVATE",
+          "prompt": "Create a pickleball court layout with dark blue and pastel pink as main colors. ",
+          "modelNameType": "NARWHAL",
+          "workflowId": "9e07f365-9688-4749-894a-7e5b71b2b0fd",
+          "fifeUrl": "https://storage.googleapis.com/ai-sandbox-videofx/image/32ce61c2-4ddc-4848-a924-338e2ce17b5f?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1776775419&Signature=a%2FfJlQNaT3YSoL63dEzBGVMPGpPPsu5d4Vr9DM3muqdDvsu47dyzNiB1SGdNx%2BT1TgqmomMnYtPr3rzxcBgsxDaf030owe0YFt0D3cmj6ro%2BPgzUBn69qedDq8ZCwDoP0okIt1ByQ%2Bya16YCMtNr4Zc7zj1%2BRJyaMJIJHHUdVqz9fCp0WZjOAgiMsdjcdwYBEIpDHzKOuLPkoeZYu6B4fcKGHM8V0GTL%2BAJp9ZFHO2UMK%2BZ6ElcQtvvYWkuhr6NzDu7ZA0QtaueFEdAtnX8wVkwK6eQ0pUIESMfZnFJdXMLPixKrdIUvD84noiMmweNrBdBvWXPADKXLad76cCnaAg%3D%3D",
+          "aspectRatio": "IMAGE_ASPECT_RATIO_LANDSCAPE",
+          "requestData": {
+            "promptInputs": [
+              {
+                "textInput": "Create a pickleball court layout with dark blue and pastel pink as main colors. ",
+                "structuredPrompt": {
+                  "parts": [
+                    {
+                      "text": "Create a pickleball court layout with dark blue and pastel pink as main colors. "
+                    }
+                  ]
+                }
+              }
+            ],
+            "imageGenerationRequestData": {}
+          },
+          "mediaId": "32ce61c2-4ddc-4848-a924-338e2ce17b5f"
+        },
+        "dimensions": {
+          "width": 1376,
+          "height": 768
+        }
+      }
+    }
+  ],
+  "workflows": [
+    {
+      "name": "9e07f365-9688-4749-894a-7e5b71b2b0fd",
+      "metadata": {
+        "displayName": "Pickleball court layout colors",
+        "createTime": "2026-04-21T06:43:00.801875Z",
+        "primaryMediaId": "32ce61c2-4ddc-4848-a924-338e2ce17b5f",
+        "batchId": "66efc8b9-da70-4bed-8193-6f605053fa84",
+        "updateTime": "2026-04-21T06:43:37.629792Z"
+      },
+      "projectId": "0c5ebc9f-bc1f-4159-b613-6328056b8602"
+    }
+  ]
+}

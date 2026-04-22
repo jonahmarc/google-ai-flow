@@ -1,6 +1,4 @@
 __pycache__
 venv
 .env
-request_response-details.json
-request_response-details-w-attach.json
 session.json

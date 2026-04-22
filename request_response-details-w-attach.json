@@ -1,0 +1,168 @@
+// HEADERS DETAILS
+// ------- General
+Request URL:      https://aisandbox-pa.googleapis.com/v1/projects/0c5ebc9f-bc1f-4159-b613-6328056b8602/flowMedia:batchGenerateImages
+Request Method:   POST
+Status Code:      200 OK
+Remote Address:   142.251.220.170:443
+Referrer Policy:  strict-origin-when-cross-origin
+// ------- Response Headers
+access-control-allow-credentials:       true
+access-control-allow-origin:            https://labs.google
+access-control-expose-headers:          vary,vary,vary,content-encoding,date,server,content-length
+alt-svc:                                h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+content-encoding:                       gzip
+content-length:                         900
+content-type:                           application/json; charset=UTF-8
+date:                                   Wed, 22 Apr 2026 08:54:20 GMT
+server:                                 ESF
+vary:                                   Origin
+vary:                                   X-Origin
+vary:                                   Referer
+x-content-type-options:                 nosniff
+x-frame-options:                        SAMEORIGIN
+x-xss-protection:                       0
+// ------- Request Headers
+:authority                    aisandbox-pa.googleapis.com
+:method                       POST
+:path                         /v1/projects/0c5ebc9f-bc1f-4159-b613-6328056b8602/flowMedia:batchGenerateImages
+:scheme                       https
+accept                        */*
+(this line is not included*/
+accept-encoding               gzip, deflate, br, zstd
+accept-language               en-US,en;q=0.7
+authorization                 Bearer ya29.a0Aa7MYiqnaNh0n3aKNt4A4EvH-WmdLpOedpYGoi0OBfcamag40z2h6pVci3d90uS_misoRoHzEc_I4LCiFWIBfOf3eiELjLYZYbkdj7H8TQTlohQDh9CGCRUkxLjTZKcbKj49_-LPesX63Iprn3NYDInNzSuexcK-Bd9NOk_Y7vZNm2XCm_LS01pLA2VTpQ5N4u49Fx-RT2TYCmVfleh6QIqlxHq7xkis4dREPKKVb-veNoj1-H1CFu6Ag_uC-y645jVCVwMhqrJLF-00jc0mhojjXHEhExjOh250236unExOHK3-uvuuXBMsAX0SCYYQfWChUlkLH_MIzSfkhlhOsdAhEOiY3NrEy1PLf-s6ZQ8aCgYKAZoSARQSFQHGX2MifXr3_mw_PalFcdxwjTX8iw0370
+// cache-control                 no-cache
+content-length                5276
+content-type                  text/plain;charset=UTF-8
+origin                        https://labs.google
+// pragma                        no-cache
+priority                      u=1, i
+referer                       https://labs.google/
+sec-ch-ua                     "Brave";v="147", "Not.A/Brand";v="8", "Chromium";v="147"
+sec-ch-ua-mobile              ?0
+sec-ch-ua-platform            "Windows"
+sec-fetch-dest                empty
+sec-fetch-mode                cors
+sec-fetch-site                cross-site
+sec-gpc                       1
+user-agent                    Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36
+x-browser-channel             stable
+x-browser-copyright           Copyright 2026 Google LLC. All Rights Reserved.
+x-browser-validation          B2gM+WTW2xHE15IAjh8nDoMc5x0=
+x-browser-year                2026
+x-client-data                 CJS2yQEIpLbJAQipncoBCISMywEIk6HLAQiFoM0B
+                              Decoded:
+                              message ClientVariations {
+                                // Active Google-visible variation IDs on this client. These are reported for analysis, but do not directly affect any server-side behavior.
+                                repeated int32 variation_id = [3300116, 3300132, 3313321, 3327492, 3330195, 3362821];
+                              }
+
+
+
+// PAYLOAD DETAILS
+{
+  "clientContext": {
+    "recaptchaContext": {
+      "token": "0cAFcWeA7PPSz4lhaUJUHIiMaO3MpJt1Z3gIOIIMOhQlg6ufoi1_7l_F66RljO0HkdG5nJ3sH_obp6zZJOwxy_qrN9WbaW8xQ4TYnn6Hf_qiULR9meM7yKRoUtwMcr5papRG_CqpLDrlhWtVpNgdcZT9jK7lu5F3N4Un4xwwufmxfxDK6rUZh7c4nYI49vltfUUziAZwias1RE9rx0Y3JGHh3uAQcM51TcJWHthPQkPHgEJHKj_dd7dnVzdS7ZzLSplRJy0ef7YfB0fZ97uqtoKtuXOJVSGdFXS1qxVZePZX8Hidtwle6mpYkm__B4u6fydlCx8F8iUhb_crp8xk5uyWlDPnUa9LCCkkivetzl6MY9648_5tKhyusKeYhn2h8eeyhQw8Ym5GQiYwSznSjq8otSs4WmlBkfho2emaipQVASLRlKN90_t6z9leSm6RtR7EuPkd8wjhoFSJA9sRWskVIW8P5KbKy2gp4N2RugPgulAGv0K0DucE8buqrCQE2ruDDK5xza8ie6kowuVYuHs3VQfc2726jjr-iQ0QpNWV3mPWsjphRr2EJ_gJ2iDuzChWMHjC0ibmmig7jAk0g6XGilZgCUGcNEmWirNi5LSct9yYhGNaVPmOElLv9hZgEEamgVDMXIa6TcCCsexJCAoWH0LnQKUBD8XF-ycDEe9nBirB5un3K53wC1KSgwZW15ZdjgtQRm_m4FkJV798a7AfWEeNW9iDXVExhAXPRneVCguboh04Yg8EOEhoV4Pn6J8ZhnCdc-ett-a1aZfcCK6pUsvJ-zGFLh_ClYElOOyaR7DOHQuOGa-fZKKXyCeuYubEQVAMtPyX3Y5mEljM_aEQpVMFJctnx1s7Ow3FOiAf31GUHA7r4FozVSgANJwipNW3Beu-J8f3SznypAIbzgC-K8pQNrhJnK4D9wMQuf9HYfbvji6S0-EM8-6ThtrP9alkqYO2gMCjSlLMOSZrnEUJEoJ1CaOS3u4hXUGjaQewUmZJ880p6AMJiP_MF5QCFAO6niRWBINT1T1cNGF-iaHApAKrnjkSQDNZHDU8B4KxJxTyoBRkclQtCXCSvH_9H5FY-nCy0mUKVHVbsASVjEFbJWOB32yIVi8rhYIQD41rYpz-cVB4Bs8S6X_u6_s0JaJyj66pKpDm37CHgSiVctu5KpTeeuuDCDxyRSRHes5IL4rnsNaHqgj8FpmHSECLXsrfV-X9zCnC9G5JlwHkAuRmRxEJPsv4j8ZDRJe1OqNtKNuXlfxUhnnahsvXfo4m5shlKxTz3v-e7Ds2QfozyghpeP63xfd9HIhN8m6ZHVQGmNDXmIntxsAPWyEEI_G-X8ouIuhVLkoROszpwB1l0IuH7K3nwCBJBLTKcoaFJ2spE9z0rIXUD91j_2UW02VI-zPYJiJPrUpbqXv9gdj9vUbc-AiLwhGclWR7F-u5xsesgYUylrOZ9NyscuWPoOIC_h75JJoUgVODPhuowUOoVEO7AkUHBM0FGX1hTTTUGOWgBKehFy3vWTN4fsROiQn_aiA98S1rD84czvj_qcm6qSuuOnjKjxlknhAXMDbCPvipWkDhIl_a9MOP7hD95Q_MKhyGxB3cFLZACmWntugwJG1RVE9VO_vAtd7x7g5f61NSBTGkK_rZyEMcE5Aa_eK2IZdgkkqr613TUdMyftApyevjN7TjPSu5Q6vuQBYeAyXycLh_vo0aedmxsAbzmEh9LWZPaiKdBLN3Y1zUGHSwRx_SxKv56e9DpPLbYq9jYiLtApH_7uHGT2l-xPYOgVxjFC1T2E9nru9prwGTxMxoovCzu0uhl3tAGo11mYxoPHFQRrMY39aPRNZWUjuqFioawfOM3POH9hGBVGtVW_4bcT9lnZqdYA__R3OoMUU-s5q2d_veCsgXxGr6o4V_R1UY844uPXDKdeO0chDgCbmRZ2yCXOHe-aT3g7IOJ7EJFiGIMbe4ejzpsM8CAAywSocj1l0ozB5DTyfkYN7AISsVMs5rHWFU3lNMKSkF-R58T91x-UNth7lfmabZXQL2D7HCWVjvjWZjmUvFFMmK-Z4g2gxCSkpmemFxfS5Dbk_HW_33cXl5Vz5YkCbxwLx7lVACrsgk8UAYIceshUMMsXPbluzKArmLGRMOWOvQdCxVmPEGpWD5C_9-uGefMe0HQbseIeUtvWyTYqAPswSMCD_AFFgYKBcRLz1ZtTV_Ro6_LVpxHA1mWQQCDMgbtJsnEgGeaGiSeDY4sG54cY",
+      "applicationType": "RECAPTCHA_APPLICATION_TYPE_WEB"
+    },
+    "projectId": "0c5ebc9f-bc1f-4159-b613-6328056b8602",
+    "tool": "PINHOLE",
+    "sessionId": ";1776848615561"
+  },
+  "mediaGenerationContext": {
+    "batchId": "7c78b398-d8f4-41fe-ba8e-cc077b721d09"
+  },
+  "useNewMedia": true,
+  "requests": [
+    {
+      "clientContext": {
+        "recaptchaContext": {
+          "token": "0cAFcWeA7PPSz4lhaUJUHIiMaO3MpJt1Z3gIOIIMOhQlg6ufoi1_7l_F66RljO0HkdG5nJ3sH_obp6zZJOwxy_qrN9WbaW8xQ4TYnn6Hf_qiULR9meM7yKRoUtwMcr5papRG_CqpLDrlhWtVpNgdcZT9jK7lu5F3N4Un4xwwufmxfxDK6rUZh7c4nYI49vltfUUziAZwias1RE9rx0Y3JGHh3uAQcM51TcJWHthPQkPHgEJHKj_dd7dnVzdS7ZzLSplRJy0ef7YfB0fZ97uqtoKtuXOJVSGdFXS1qxVZePZX8Hidtwle6mpYkm__B4u6fydlCx8F8iUhb_crp8xk5uyWlDPnUa9LCCkkivetzl6MY9648_5tKhyusKeYhn2h8eeyhQw8Ym5GQiYwSznSjq8otSs4WmlBkfho2emaipQVASLRlKN90_t6z9leSm6RtR7EuPkd8wjhoFSJA9sRWskVIW8P5KbKy2gp4N2RugPgulAGv0K0DucE8buqrCQE2ruDDK5xza8ie6kowuVYuHs3VQfc2726jjr-iQ0QpNWV3mPWsjphRr2EJ_gJ2iDuzChWMHjC0ibmmig7jAk0g6XGilZgCUGcNEmWirNi5LSct9yYhGNaVPmOElLv9hZgEEamgVDMXIa6TcCCsexJCAoWH0LnQKUBD8XF-ycDEe9nBirB5un3K53wC1KSgwZW15ZdjgtQRm_m4FkJV798a7AfWEeNW9iDXVExhAXPRneVCguboh04Yg8EOEhoV4Pn6J8ZhnCdc-ett-a1aZfcCK6pUsvJ-zGFLh_ClYElOOyaR7DOHQuOGa-fZKKXyCeuYubEQVAMtPyX3Y5mEljM_aEQpVMFJctnx1s7Ow3FOiAf31GUHA7r4FozVSgANJwipNW3Beu-J8f3SznypAIbzgC-K8pQNrhJnK4D9wMQuf9HYfbvji6S0-EM8-6ThtrP9alkqYO2gMCjSlLMOSZrnEUJEoJ1CaOS3u4hXUGjaQewUmZJ880p6AMJiP_MF5QCFAO6niRWBINT1T1cNGF-iaHApAKrnjkSQDNZHDU8B4KxJxTyoBRkclQtCXCSvH_9H5FY-nCy0mUKVHVbsASVjEFbJWOB32yIVi8rhYIQD41rYpz-cVB4Bs8S6X_u6_s0JaJyj66pKpDm37CHgSiVctu5KpTeeuuDCDxyRSRHes5IL4rnsNaHqgj8FpmHSECLXsrfV-X9zCnC9G5JlwHkAuRmRxEJPsv4j8ZDRJe1OqNtKNuXlfxUhnnahsvXfo4m5shlKxTz3v-e7Ds2QfozyghpeP63xfd9HIhN8m6ZHVQGmNDXmIntxsAPWyEEI_G-X8ouIuhVLkoROszpwB1l0IuH7K3nwCBJBLTKcoaFJ2spE9z0rIXUD91j_2UW02VI-zPYJiJPrUpbqXv9gdj9vUbc-AiLwhGclWR7F-u5xsesgYUylrOZ9NyscuWPoOIC_h75JJoUgVODPhuowUOoVEO7AkUHBM0FGX1hTTTUGOWgBKehFy3vWTN4fsROiQn_aiA98S1rD84czvj_qcm6qSuuOnjKjxlknhAXMDbCPvipWkDhIl_a9MOP7hD95Q_MKhyGxB3cFLZACmWntugwJG1RVE9VO_vAtd7x7g5f61NSBTGkK_rZyEMcE5Aa_eK2IZdgkkqr613TUdMyftApyevjN7TjPSu5Q6vuQBYeAyXycLh_vo0aedmxsAbzmEh9LWZPaiKdBLN3Y1zUGHSwRx_SxKv56e9DpPLbYq9jYiLtApH_7uHGT2l-xPYOgVxjFC1T2E9nru9prwGTxMxoovCzu0uhl3tAGo11mYxoPHFQRrMY39aPRNZWUjuqFioawfOM3POH9hGBVGtVW_4bcT9lnZqdYA__R3OoMUU-s5q2d_veCsgXxGr6o4V_R1UY844uPXDKdeO0chDgCbmRZ2yCXOHe-aT3g7IOJ7EJFiGIMbe4ejzpsM8CAAywSocj1l0ozB5DTyfkYN7AISsVMs5rHWFU3lNMKSkF-R58T91x-UNth7lfmabZXQL2D7HCWVjvjWZjmUvFFMmK-Z4g2gxCSkpmemFxfS5Dbk_HW_33cXl5Vz5YkCbxwLx7lVACrsgk8UAYIceshUMMsXPbluzKArmLGRMOWOvQdCxVmPEGpWD5C_9-uGefMe0HQbseIeUtvWyTYqAPswSMCD_AFFgYKBcRLz1ZtTV_Ro6_LVpxHA1mWQQCDMgbtJsnEgGeaGiSeDY4sG54cY",
+          "applicationType": "RECAPTCHA_APPLICATION_TYPE_WEB"
+        },
+        "projectId": "0c5ebc9f-bc1f-4159-b613-6328056b8602",
+        "tool": "PINHOLE",
+        "sessionId": ";1776848615561"
+      },
+      "imageModelName": "NARWHAL",
+      "imageAspectRatio": "IMAGE_ASPECT_RATIO_LANDSCAPE",
+      "structuredPrompt": {
+        "parts": [
+          {
+            "text": "dog in the desert"
+          }
+        ]
+      },
+      "seed": 599104,
+      "imageInputs": [
+        {
+          "imageInputType": "IMAGE_INPUT_TYPE_REFERENCE",
+          "name": "0fb88a32-d0a7-4ed3-90b1-cf1b54dd9682"
+        }
+      ]
+    }
+  ]
+}
+
+// RESPONSE DETAILS
+{
+  "media": [
+    {
+      "name": "ba6e0130-c641-42ee-9168-afcdb1fc4fc6",
+      "workflowId": "245098e7-3ec6-4f8a-a326-d95288f5427b",
+      "image": {
+        "generatedImage": {
+          "seed": 599104,
+          "mediaGenerationId": "CAMSJDBjNWViYzlmLWJjMWYtNDE1OS1iNjEzLTYzMjgwNTZiODYwMhokNTc2YTM1MDktZDBhZS00NjgxLWI2Y2ItMzVhYjdkNTdkYzM2IgNDQUUqJGJhNmUwMTMwLWM2NDEtNDJlZS05MTY4LWFmY2RiMWZjNGZjNg",
+          "mediaVisibility": "PRIVATE",
+          "prompt": "dog in the desert",
+          "modelNameType": "NARWHAL",
+          "workflowId": "245098e7-3ec6-4f8a-a326-d95288f5427b",
+          "fifeUrl": "https://flow-content.google/image/ba6e0130-c641-42ee-9168-afcdb1fc4fc6?Expires=1776869627&KeyName=labs-flow-prod-cdn-key&Signature=NsHxmEy39AK-iwBtU9wRZNkkdRI",
+          "aspectRatio": "IMAGE_ASPECT_RATIO_LANDSCAPE",
+          "requestData": {
+            "promptInputs": [
+              {
+                "textInput": "dog in the desert",
+                "structuredPrompt": {
+                  "parts": [
+                    {
+                      "text": "dog in the desert"
+                    }
+                  ]
+                }
+              }
+            ],
+            "imageGenerationRequestData": {
+              "imageGenerationImageInputs": [
+                {
+                  "imageInputType": "IMAGE_INPUT_TYPE_REFERENCE",
+                  "mediaId": "0fb88a32-d0a7-4ed3-90b1-cf1b54dd9682"
+                }
+              ]
+            }
+          },
+          "mediaId": "ba6e0130-c641-42ee-9168-afcdb1fc4fc6"
+        },
+        "dimensions": {
+          "width": 1376,
+          "height": 768
+        }
+      }
+    }
+  ],
+  "workflows": [
+    {
+      "name": "245098e7-3ec6-4f8a-a326-d95288f5427b",
+      "metadata": {
+        "displayName": "dog in the desert",
+        "createTime": "2026-04-22T08:53:48.148755Z",
+        "primaryMediaId": "ba6e0130-c641-42ee-9168-afcdb1fc4fc6",
+        "batchId": "7c78b398-d8f4-41fe-ba8e-cc077b721d09",
+        "updateTime": "2026-04-22T08:54:18.781412Z"
+      },
+      "projectId": "0c5ebc9f-bc1f-4159-b613-6328056b8602"
+    }
+  ]
+}
