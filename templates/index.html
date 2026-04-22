@@ -33,6 +33,7 @@
             margin-bottom: 16px;
             outline: none;
             font-family: sans-serif;
+            box-sizing: border-box;
         }
 
         textarea:focus { border-color: #333; }
@@ -48,7 +49,70 @@
             outline: none;
         }
 
-        button {
+        .image-upload-area {
+            border: 1px dashed #ccc;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: border-color 0.15s;
+        }
+
+        .image-upload-area:hover { border-color: #333; }
+
+        .image-upload-area.has-image {
+            border-style: solid;
+            border-color: #333;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .image-upload-area p {
+            margin: 0;
+            font-size: 13px;
+            color: #888;
+        }
+
+        #image-preview-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #image-preview {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            display: none;
+        }
+
+        #image-filename {
+            font-size: 13px;
+            color: #333;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #image-remove {
+            font-size: 12px;
+            color: #888;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        #image-remove:hover { background: #f0f0f0; color: #333; }
+
+        #image-input { display: none; }
+
+        button[type=submit], #btn {
             width: 100%;
             padding: 12px;
             font-size: 15px;
@@ -60,7 +124,7 @@
             cursor: pointer;
         }
 
-        button:disabled {
+        #btn:disabled {
             background: #999;
             cursor: not-allowed;
         }
@@ -108,6 +172,17 @@
         <option value="square">Square</option>
     </select>
 
+    <label>Reference Image (optional)</label>
+    <div class="image-upload-area" id="upload-area" onclick="document.getElementById('image-input').click()">
+        <div id="image-preview-wrap">
+            <img id="image-preview" src="" alt="Preview" />
+            <span id="image-filename"></span>
+            <button id="image-remove" type="button" onclick="removeImage(event)" style="display:none">Remove</button>
+        </div>
+        <p id="upload-hint">Click to attach a reference image</p>
+    </div>
+    <input type="file" id="image-input" accept="image/*" onchange="handleImageSelect(event)" />
+
     <button id="btn" onclick="generate()">Generate</button>
 
     <div id="status"></div>
@@ -118,6 +193,39 @@
     </div>
 
     <script>
+        let selectedFile = null;
+
+        function handleImageSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            selectedFile = file;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById('image-preview');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+
+            document.getElementById('image-filename').textContent = file.name;
+            document.getElementById('image-remove').style.display = 'inline';
+            document.getElementById('upload-hint').style.display = 'none';
+            document.getElementById('upload-area').classList.add('has-image');
+        }
+
+        function removeImage(event) {
+            event.stopPropagation();
+            selectedFile = null;
+            document.getElementById('image-input').value = '';
+            document.getElementById('image-preview').style.display = 'none';
+            document.getElementById('image-preview').src = '';
+            document.getElementById('image-filename').textContent = '';
+            document.getElementById('image-remove').style.display = 'none';
+            document.getElementById('upload-hint').style.display = 'block';
+            document.getElementById('upload-area').classList.remove('has-image');
+        }
+
         async function generate() {
             const prompt = document.getElementById('prompt').value.trim();
             if (!prompt) return alert('Please enter a prompt.');
@@ -129,12 +237,17 @@
             btn.disabled = true;
             btn.textContent = 'Generating...';
             status.className = '';
-            status.textContent = 'This may take ~30 seconds...';
+            status.textContent = selectedFile
+                ? 'Uploading image and generating... this may take ~45 seconds...'
+                : 'This may take ~30 seconds...';
             result.style.display = 'none';
 
             const formData = new FormData();
             formData.append('prompt', prompt);
             formData.append('aspect_ratio', document.getElementById('ratio').value);
+            if (selectedFile) {
+                formData.append('image', selectedFile);
+            }
 
             try {
                 const res = await fetch('/generate', { method: 'POST', body: formData });

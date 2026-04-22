@@ -72,10 +72,12 @@ async def generate_image(
     }
 
     loop = asyncio.get_event_loop()
+    params_json = json.dumps(params)
     result = await loop.run_in_executor(
         None,
         lambda: subprocess.run(
-            [sys.executable, "runner.py", json.dumps(params)],
+            [sys.executable, "runner.py"],
+            input=params_json,
             capture_output=True,
             text=True
         )
