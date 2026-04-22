@@ -77,19 +77,15 @@ def main():
                 result_container["error"] = response.text()
 
     with sync_playwright() as p:
-        # Connect to your already-running Chrome instance via CDP.
-        # This uses your real Chrome with real fingerprint and active
-        # Google session — reCAPTCHA passes naturally.
         try:
             browser = p.chromium.connect_over_cdp("http://127.0.0.1:9222")
         except Exception as e:
             raise Exception(
                 "Could not connect to Chrome. Make sure Chrome is running with: "
-                "chrome.exe --remote-debugging-port=9222 --user-data-dir=C:\\chrome-debug-profile\n"
+                "chrome.exe --remote-debugging-port=9222 --user-data-dir=C:\\chrome-cdp-profile\n"
                 f"Original error: {e}"
             )
 
-        # Use the first existing browser context (your real logged-in session)
         if browser.contexts:
             context = browser.contexts[0]
         else:
@@ -101,21 +97,16 @@ def main():
         page.route("**batchGenerateImages**", handle_route)
         page.on("response", handle_response)
 
-        page.goto("https://labs.google/fx/tools/flow")
-        page.wait_for_timeout(3000)
-
-        # Click "Create with Flow" to enter the actual editor
-        page.evaluate("""
-            () => {
-                const buttons = Array.from(document.querySelectorAll('button, a'));
-                const createBtn = buttons.find(b =>
-                    b.innerText.toLowerCase().includes('create with flow')
-                );
-                if (createBtn) createBtn.click();
-            }
-        """)
-
+        # Go directly to the project editor instead of the marketing homepage
+        page.goto("https://labs.google/fx/tools/flow/project/0c5ebc9f-bc1f-4159-b613-6328056b8602")
         page.wait_for_timeout(4000)
+
+        # Dismiss any popup (changelog, welcome, etc.)
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(1000)
+
+        # Take a screenshot so we can verify the editor state
+        page.screenshot(path="debug_screenshot.png")
 
         # Type prompt into the input field
         page.evaluate("""
