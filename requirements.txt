@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+httpx
+playwright
+python-dotenv
+jinja2
+python-multipart

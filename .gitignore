@@ -1,0 +1,5 @@
+__pycache__
+venv
+.env
+request_response-details.json
+session.json
