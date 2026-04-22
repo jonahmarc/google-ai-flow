@@ -8,9 +8,6 @@ import subprocess
 from fastapi import FastAPI, Request, UploadFile, File, Form
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = FastAPI(title="Google Flow Image Generator")
 templates = Jinja2Templates(directory="templates")
