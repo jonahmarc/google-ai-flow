@@ -98,59 +98,46 @@ def main():
         page.on("response", handle_response)
 
         # Go directly to the project editor
-        page.goto("https://labs.google/fx/tools/flow/project/0c5ebc9f-bc1f-4159-b613-6328056b8602")
+        page.goto(
+            "https://labs.google/fx/tools/flow/project/0c5ebc9f-bc1f-4159-b613-6328056b8602",
+            wait_until="domcontentloaded",
+            timeout=60000
+        )
         page.wait_for_timeout(4000)
 
         # Dismiss any popup
         page.keyboard.press("Escape")
         page.wait_for_timeout(1000)
 
-        # Click into the prompt input to focus it
-        try:
-            page.click('textarea, [placeholder="What do you want to create?"], [contenteditable="true"]')
-        except Exception:
-            pass
+        # Click into the Slate editor prompt input
+        page.click('[data-slate-editor="true"]')
         page.wait_for_timeout(500)
 
-        # Type the prompt using keyboard (more reliable than .value for React inputs)
+        # Type the prompt
         page.keyboard.type(prompt)
         page.wait_for_timeout(1000)
 
-        # Try to click the send/arrow button
+        # Click the Create/arrow button
+        # It contains a span with text "Create" and an arrow_forward icon
         clicked = page.evaluate("""
             () => {
                 const buttons = Array.from(document.querySelectorAll('button'));
-
-                // Try aria-label first
-                const byLabel = buttons.find(b =>
-                    b.getAttribute('aria-label')?.toLowerCase().includes('send') ||
-                    b.getAttribute('aria-label')?.toLowerCase().includes('generate') ||
-                    b.getAttribute('aria-label')?.toLowerCase().includes('submit')
+                const createBtn = buttons.find(b =>
+                    b.querySelector('span') &&
+                    b.innerText.toLowerCase().includes('create') ||
+                    b.querySelector('i')?.innerText?.includes('arrow_forward')
                 );
-                if (byLabel) { byLabel.click(); return true; }
-
-                // Try button nearest to the textarea
-                const inputArea = document.querySelector(
-                    'textarea, [placeholder="What do you want to create?"]'
-                );
-                if (inputArea) {
-                    const parent = inputArea.closest('div[class]')?.parentElement;
-                    if (parent) {
-                        const btn = parent.querySelector('button:last-of-type');
-                        if (btn) { btn.click(); return true; }
-                    }
-                }
-
+                if (createBtn) { createBtn.click(); return true; }
                 return false;
             }
         """)
 
         if not clicked:
-            # Fallback: just press Enter — Flow submits on Enter
+            # Fallback: press Enter
             page.keyboard.press("Enter")
 
-        # Wait for the intercepted response
-        page.wait_for_timeout(20000)
+        # Wait for generation to complete (~10s) then wait for response
+        page.wait_for_timeout(30000)
         page.close()
 
     if "error" in result_container:
