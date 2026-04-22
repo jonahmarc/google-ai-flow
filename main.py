@@ -19,10 +19,11 @@ templates = Jinja2Templates(directory="templates")
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     session_exists = os.path.exists("session.json")
-    return templates.TemplateResponse("index.html", {
-        "request": request,
-        "has_session": session_exists
-    })
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={"has_session": session_exists}
+    )
 
 
 @app.post("/generate")

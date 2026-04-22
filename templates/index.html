@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flow Generator</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 0 20px;
+            background: #fff;
+            color: #111;
+        }
+
+        h1 { font-size: 22px; margin-bottom: 24px; }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            resize: vertical;
+            margin-bottom: 16px;
+            outline: none;
+            font-family: sans-serif;
+        }
+
+        textarea:focus { border-color: #333; }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            background: #fff;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            background: #111;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        #status {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #555;
+            min-height: 20px;
+        }
+
+        #status.error { color: #c00; }
+
+        #result {
+            margin-top: 24px;
+            display: none;
+        }
+
+        #result img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            display: block;
+        }
+
+        #result a {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #111;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Flow Image Generator</h1>
+
+    <label for="prompt">Prompt</label>
+    <textarea id="prompt" rows="4" placeholder="Describe the image..."></textarea>
+
+    <label for="ratio">Aspect Ratio</label>
+    <select id="ratio">
+        <option value="landscape">Landscape</option>
+        <option value="portrait">Portrait</option>
+        <option value="square">Square</option>
+    </select>
+
+    <button id="btn" onclick="generate()">Generate</button>
+
+    <div id="status"></div>
+
+    <div id="result">
+        <img id="img" src="" alt="Generated image" />
+        <a id="link" href="#" target="_blank">Open full image</a>
+    </div>
+
+    <script>
+        async function generate() {
+            const prompt = document.getElementById('prompt').value.trim();
+            if (!prompt) return alert('Please enter a prompt.');
+
+            const btn = document.getElementById('btn');
+            const status = document.getElementById('status');
+            const result = document.getElementById('result');
+
+            btn.disabled = true;
+            btn.textContent = 'Generating...';
+            status.className = '';
+            status.textContent = 'This may take ~30 seconds...';
+            result.style.display = 'none';
+
+            const formData = new FormData();
+            formData.append('prompt', prompt);
+            formData.append('aspect_ratio', document.getElementById('ratio').value);
+
+            try {
+                const res = await fetch('/generate', { method: 'POST', body: formData });
+                const data = await res.json();
+
+                if (data.error) throw new Error(data.error);
+
+                document.getElementById('img').src = data.image_url;
+                document.getElementById('link').href = data.image_url;
+                result.style.display = 'block';
+                status.textContent = 'Done!';
+
+            } catch (err) {
+                status.className = 'error';
+                status.textContent = 'Error: ' + err.message;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Generate';
+            }
+        }
+    </script>
+
+</body>
+</html>
