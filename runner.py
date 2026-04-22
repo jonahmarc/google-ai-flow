@@ -97,60 +97,60 @@ def main():
         page.route("**batchGenerateImages**", handle_route)
         page.on("response", handle_response)
 
-        # Go directly to the project editor instead of the marketing homepage
+        # Go directly to the project editor
         page.goto("https://labs.google/fx/tools/flow/project/0c5ebc9f-bc1f-4159-b613-6328056b8602")
         page.wait_for_timeout(4000)
 
-        # Dismiss any popup (changelog, welcome, etc.)
+        # Dismiss any popup
         page.keyboard.press("Escape")
         page.wait_for_timeout(1000)
 
-        # Take a screenshot so we can verify the editor state
-        page.screenshot(path="debug_screenshot.png")
+        # Click into the prompt input to focus it
+        try:
+            page.click('textarea, [placeholder="What do you want to create?"], [contenteditable="true"]')
+        except Exception:
+            pass
+        page.wait_for_timeout(500)
 
-        # Type prompt into the input field
-        page.evaluate("""
-            (prompt) => {
-                const inputs = Array.from(document.querySelectorAll(
-                    'textarea, input[type="text"], [contenteditable="true"]'
-                ));
-                if (inputs.length > 0) {
-                    inputs[0].focus();
-                    inputs[0].value = prompt;
-                    inputs[0].dispatchEvent(new Event('input', { bubbles: true }));
-                    inputs[0].dispatchEvent(new Event('change', { bubbles: true }));
-                }
-            }
-        """, prompt)
-
+        # Type the prompt using keyboard (more reliable than .value for React inputs)
+        page.keyboard.type(prompt)
         page.wait_for_timeout(1000)
 
-        # Click the generate button
+        # Try to click the send/arrow button
         clicked = page.evaluate("""
             () => {
                 const buttons = Array.from(document.querySelectorAll('button'));
-                const generateBtn = buttons.find(b =>
-                    b.innerText.toLowerCase().includes('generate') ||
+
+                // Try aria-label first
+                const byLabel = buttons.find(b =>
+                    b.getAttribute('aria-label')?.toLowerCase().includes('send') ||
                     b.getAttribute('aria-label')?.toLowerCase().includes('generate') ||
-                    b.getAttribute('data-testid')?.toLowerCase().includes('generate')
+                    b.getAttribute('aria-label')?.toLowerCase().includes('submit')
                 );
-                if (generateBtn) {
-                    generateBtn.click();
-                    return true;
+                if (byLabel) { byLabel.click(); return true; }
+
+                // Try button nearest to the textarea
+                const inputArea = document.querySelector(
+                    'textarea, [placeholder="What do you want to create?"]'
+                );
+                if (inputArea) {
+                    const parent = inputArea.closest('div[class]')?.parentElement;
+                    if (parent) {
+                        const btn = parent.querySelector('button:last-of-type');
+                        if (btn) { btn.click(); return true; }
+                    }
                 }
+
                 return false;
             }
         """)
 
         if not clicked:
-            page.screenshot(path="debug_screenshot.png")
-            page.close()
-            raise Exception(
-                "Generate button not found. Check debug_screenshot.png to see the page state."
-            )
+            # Fallback: just press Enter — Flow submits on Enter
+            page.keyboard.press("Enter")
 
-        # Wait for intercepted response
-        page.wait_for_timeout(15000)
+        # Wait for the intercepted response
+        page.wait_for_timeout(20000)
         page.close()
 
     if "error" in result_container:
