@@ -50,45 +50,34 @@ def main():
         page.keyboard.type(prompt)
         page.wait_for_timeout(1000)
 
-        page.screenshot(path="debug_after_type.png")
-        print("[3] Screenshot saved: debug_after_type.png", flush=True)
+        # Use expect_response BEFORE clicking so we don't miss the response
+        print("[4] Waiting for generation response...", flush=True)
+        with page.expect_response(
+            lambda r: "flowMedia:batchGenerateImages" in r.url,
+            timeout=60000
+        ) as response_info:
+            # Click the send button inside the context manager
+            clicked = page.evaluate("""
+                () => {
+                    const buttons = Array.from(document.querySelectorAll('button'));
+                    const sendBtn = buttons.find(b => {
+                        const icon = b.querySelector('i');
+                        return icon && icon.innerText.trim() === 'arrow_forward';
+                    });
+                    if (sendBtn) { sendBtn.click(); return true; }
+                    return false;
+                }
+            """)
 
-        # Click the send button (arrow_forward icon)
-        print("[4] Clicking send button...", flush=True)
-        clicked = page.evaluate("""
-            () => {
-                const buttons = Array.from(document.querySelectorAll('button'));
-                const sendBtn = buttons.find(b => {
-                    const icon = b.querySelector('i');
-                    return icon && icon.innerText.trim() === 'arrow_forward';
-                });
-                if (sendBtn) { sendBtn.click(); return true; }
-                return false;
-            }
-        """)
+            if not clicked:
+                print("[4] Button not found, pressing Enter", flush=True)
+                page.keyboard.press("Enter")
+            else:
+                print("[4] Send button clicked", flush=True)
 
-        if not clicked:
-            print("[4] Button not found, pressing Enter", flush=True)
-            page.keyboard.press("Enter")
-        else:
-            print("[4] Send button clicked", flush=True)
-
-        page.wait_for_timeout(2000)
-        page.screenshot(path="debug_after_submit.png")
-        print("[4] Screenshot saved: debug_after_submit.png", flush=True)
-
-        # Actively wait for the generation response (up to 60s)
-        print("[5] Waiting for generation response...", flush=True)
-        try:
-            response = page.wait_for_response(
-                lambda r: "flowMedia:batchGenerateImages" in r.url,
-                timeout=60000
-            )
-            print(f"[5] Response received! Status: {response.status}", flush=True)
-            result = response.json()
-        except Exception as e:
-            page.screenshot(path="debug_timeout.png")
-            raise Exception(f"Timed out waiting for generation response: {e}")
+        response = response_info.value
+        print(f"[5] Response received! Status: {response.status}", flush=True)
+        result = response.json()
 
         page.close()
 
