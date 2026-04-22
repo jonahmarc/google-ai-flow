@@ -2,8 +2,6 @@ import base64
 import os
 import sys
 import json
-import uuid
-import time
 import asyncio
 import subprocess
 
@@ -68,7 +66,7 @@ async def generate_image(
 ) -> str:
     params = {
         "prompt": prompt,
-        "session_cookies": session_data["cookies"],
+        "session_cookies": session_data.get("cookies", session_data),
         "bearer_token": session_data.get("bearer_token", ""),
         "aspect_ratio": aspect_ratio,
         "image_base64": image_base64,
@@ -85,11 +83,27 @@ async def generate_image(
         )
     )
 
+    # Forward runner.py logs to uvicorn output
+    if result.stdout:
+        print(result.stdout, flush=True)
+    if result.stderr:
+        print("[RUNNER STDERR]", result.stderr, flush=True)
+
     if result.returncode != 0:
         raise Exception(result.stderr)
 
-    data = json.loads(result.stdout)
-    return data["image_url"]
+    # runner.py prints debug logs + final JSON on the last line
+    # Scan lines in reverse to find the last valid JSON with image_url
+    lines = [l.strip() for l in result.stdout.strip().splitlines() if l.strip()]
+    for line in reversed(lines):
+        try:
+            data = json.loads(line)
+            if isinstance(data, dict) and "image_url" in data:
+                return data["image_url"]
+        except Exception:
+            continue
+
+    raise Exception(f"Could not find image_url in runner output:\n{result.stdout}")
 
 
 if __name__ == "__main__":
