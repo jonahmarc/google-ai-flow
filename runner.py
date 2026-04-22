@@ -65,8 +65,8 @@ def main():
     result_container = {}
 
     def handle_route(route):
-        # Intercept Flow's own request and swap in our payload.
-        # All original headers (including reCAPTCHA token) are preserved.
+        # Preserve all original headers (including reCAPTCHA token),
+        # only swap out the request body with our payload
         route.continue_(post_data=json.dumps(our_payload))
 
     def handle_response(response):
@@ -77,55 +77,96 @@ def main():
                 result_container["error"] = response.text()
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(
-            headless=False,
-            executable_path=r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-            args=["--disable-blink-features=AutomationControlled"]
-        )
-        context = browser.new_context(
-            user_agent=(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/124.0.0.0 Safari/537.36"
+        # Connect to your already-running Chrome instance via CDP.
+        # This uses your real Chrome with real fingerprint and active
+        # Google session — reCAPTCHA passes naturally.
+        try:
+            browser = p.chromium.connect_over_cdp("http://127.0.0.1:9222")
+        except Exception as e:
+            raise Exception(
+                "Could not connect to Chrome. Make sure Chrome is running with: "
+                "chrome.exe --remote-debugging-port=9222 --user-data-dir=C:\\chrome-debug-profile\n"
+                f"Original error: {e}"
             )
-        )
-        context.add_init_script(
-            "Object.defineProperty(navigator, 'webdriver', { get: () => undefined });"
-        )
-        context.add_cookies(session_cookies)
+
+        # Use the first existing browser context (your real logged-in session)
+        if browser.contexts:
+            context = browser.contexts[0]
+        else:
+            context = browser.new_context()
 
         page = context.new_page()
 
-        # Intercept the API call Flow makes and swap our payload in
+        # Intercept the API call and swap our payload in
         page.route("**batchGenerateImages**", handle_route)
         page.on("response", handle_response)
 
         page.goto("https://labs.google/fx/tools/flow")
-        page.wait_for_timeout(4000)
+        page.wait_for_timeout(3000)
 
-        # Trigger Flow's generate button so it fires its own request
-        # (our route handler swaps the payload mid-flight)
+        # Click "Create with Flow" to enter the actual editor
         page.evaluate("""
             () => {
-                // Find and click the generate button
-                const buttons = Array.from(document.querySelectorAll('button'));
-                const generateBtn = buttons.find(b =>
-                    b.innerText.toLowerCase().includes('generate') ||
-                    b.getAttribute('aria-label')?.toLowerCase().includes('generate')
+                const buttons = Array.from(document.querySelectorAll('button, a'));
+                const createBtn = buttons.find(b =>
+                    b.innerText.toLowerCase().includes('create with flow')
                 );
-                if (generateBtn) generateBtn.click();
+                if (createBtn) createBtn.click();
             }
         """)
 
-        # Wait for the intercepted response
+        page.wait_for_timeout(4000)
+
+        # Type prompt into the input field
+        page.evaluate("""
+            (prompt) => {
+                const inputs = Array.from(document.querySelectorAll(
+                    'textarea, input[type="text"], [contenteditable="true"]'
+                ));
+                if (inputs.length > 0) {
+                    inputs[0].focus();
+                    inputs[0].value = prompt;
+                    inputs[0].dispatchEvent(new Event('input', { bubbles: true }));
+                    inputs[0].dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            }
+        """, prompt)
+
+        page.wait_for_timeout(1000)
+
+        # Click the generate button
+        clicked = page.evaluate("""
+            () => {
+                const buttons = Array.from(document.querySelectorAll('button'));
+                const generateBtn = buttons.find(b =>
+                    b.innerText.toLowerCase().includes('generate') ||
+                    b.getAttribute('aria-label')?.toLowerCase().includes('generate') ||
+                    b.getAttribute('data-testid')?.toLowerCase().includes('generate')
+                );
+                if (generateBtn) {
+                    generateBtn.click();
+                    return true;
+                }
+                return false;
+            }
+        """)
+
+        if not clicked:
+            page.screenshot(path="debug_screenshot.png")
+            page.close()
+            raise Exception(
+                "Generate button not found. Check debug_screenshot.png to see the page state."
+            )
+
+        # Wait for intercepted response
         page.wait_for_timeout(15000)
-        browser.close()
+        page.close()
 
     if "error" in result_container:
         raise Exception(result_container["error"])
 
     if "data" not in result_container:
-        raise Exception("No response intercepted. The generate button may not have been found or clicked.")
+        raise Exception("No response intercepted from Google Flow.")
 
     result = result_container["data"]
     media = result.get("media", [])
